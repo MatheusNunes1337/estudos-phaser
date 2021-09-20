@@ -29,9 +29,9 @@ class PlayGame extends Phaser.Scene {
 		chao.body.allowGravity = false;
         chao.body.setImmovable(true);
 
-		const estrela = this.physics.add.image(300,200, "star")
+		const estrela = this.physics.add.image(350,50, "star")
 
-		const rocha = this.physics.add.image(200,400, "rock")
+		const rocha = this.physics.add.image(500,50, "rock")
 
 		this.personagem = this.physics.add.image(500, 470, "personagem", 4)
 
@@ -47,7 +47,7 @@ class PlayGame extends Phaser.Scene {
 		this.physics.add.collider(this.personagem, estrela, this.pegou, null, this)
 		this.physics.add.collider(this.personagem, rocha, this.pegou, null, this)
 
-		this.passos = 100 //velocidade
+		this.passos = 150 //velocidade
 
 		//pontos e vidas
 		this.add.text(50, chao.y+60, "Pontos:", {fontSize: '16px', fill: 'black'})
@@ -93,9 +93,21 @@ class PlayGame extends Phaser.Scene {
 		console.log('update')
 	}	
 
-	pegou(personagem, estrela) 
+	pegou(personagem, item) 
 	{
-		console.log("Pegou a estrela")
+		switch(item.texture.key) {
+			case "star":
+				this.pontos++
+				this.txtPontos.text = this.pontos
+				break
+			case "rock":
+				this.vidas--
+				this.txtVidas.text = this.vidas
+				break
+			default:
+				break	
+
+		}
 	}
 
 }
