@@ -29,11 +29,27 @@ class PlayGame extends Phaser.Scene {
 		chao.body.allowGravity = false;
         chao.body.setImmovable(true);
 
-		const estrela = this.physics.add.image(350,50, "star")
+		//const estrela = this.physics.add.image(350,50, "star")
 
-		const rocha = this.physics.add.image(500,50, "rock")
+		//const rocha = this.physics.add.image(500,50, "rock")
 
 		this.personagem = this.physics.add.image(500, 470, "personagem", 4)
+
+		this.premios = this.physics.add.group({
+            key:'star',
+            repeat:11,
+            collideWorldBounds:true,
+            setXY:{x:20, y:0, stepX:60} 
+            
+        })
+
+		this.inimigos = this.physics.add.group({
+            key:'rock',
+            repeat:4,
+            collideWorldBounds:true,
+            setXY:{x:50, y:-100, stepX:130}
+            
+        });
 
 		//movendo o personagem
 
@@ -44,8 +60,8 @@ class PlayGame extends Phaser.Scene {
 
 		//colisões
 		this.physics.add.collider(this.personagem, chao)
-		this.physics.add.collider(this.personagem, estrela, this.pegou, null, this)
-		this.physics.add.collider(this.personagem, rocha, this.pegou, null, this)
+		this.physics.add.collider(this.personagem, this.premios, this.pegou, null, this)
+		this.physics.add.collider(this.personagem, this.inimigos, this.pegou, null, this)
 
 		this.passos = 150 //velocidade
 
