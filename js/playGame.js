@@ -5,6 +5,14 @@ class PlayGame extends Phaser.Scene {
         super("PlayGame");
         this.personagem 
         this.passos //de quanto o personagem irá andar
+		this.premios
+		this.inimigos
+
+		this.txtPontos
+		this.txtVidas
+
+		this.pontos
+		this.vidas
     }
 
 	preload() 
@@ -36,10 +44,21 @@ class PlayGame extends Phaser.Scene {
 
 		//colisões
 		this.physics.add.collider(this.personagem, chao)
-		this.physics.add.collider(this.personagem, estrela, this.pegouEstrela, null, this)
-		this.physics.add.collider(this.personagem, rocha, this.pegouEstrela, null, this)
+		this.physics.add.collider(this.personagem, estrela, this.pegou, null, this)
+		this.physics.add.collider(this.personagem, rocha, this.pegou, null, this)
 
 		this.passos = 100 //velocidade
+
+		//pontos e vidas
+		this.add.text(50, chao.y+60, "Pontos:", {fontSize: '16px', fill: 'black'})
+		this.add.text(580, chao.y+60, "Vidas:", {fontSize: '16px', fill: 'red'})
+
+		this.pontos = 0
+		this.vidas = 2
+
+		this.txtPontos = this.add.text(120, chao.y+60, this.pontos, {fontSize: '16px', fill: 'black'})
+		this.txtVidas = this.add.text(650, chao.y+60, this.vidas, {fontSize: '16px', fill: 'red'})
+
 	}
 
 	teclado(tecla) 
@@ -74,7 +93,7 @@ class PlayGame extends Phaser.Scene {
 		console.log('update')
 	}	
 
-	pegouEstrela(personagem, estrela) 
+	pegou(personagem, estrela) 
 	{
 		console.log("Pegou a estrela")
 	}
