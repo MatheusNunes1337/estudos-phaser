@@ -26,6 +26,7 @@ class PlayGame extends Phaser.Scene {
 	{
 		const chao = this.add.rectangle(0, 500, 800, 30, 0xFF8C00).setOrigin(0,0)
 		this.physics.add.existing(chao)
+		this.physics.world.on("worldbounds", this.saiuDaCena)
 		chao.body.allowGravity = false;
         chao.body.setImmovable(true);
 
@@ -60,8 +61,8 @@ class PlayGame extends Phaser.Scene {
 
 		//colisões
 		this.physics.add.collider(this.personagem, chao)
-		this.physics.add.collider(this.personagem, this.premios, this.pegou, null, this)
-		this.physics.add.collider(this.personagem, this.inimigos, this.pegou, null, this)
+		this.physics.add.overlap(this.personagem, this.premios, this.pegou, null, this)
+		this.physics.add.overlap(this.personagem, this.inimigos, this.pegou, null, this)
 
 		this.passos = 150 //velocidade
 
@@ -124,6 +125,10 @@ class PlayGame extends Phaser.Scene {
 				break	
 
 		}
+	}
+
+	saiuDaCena(elemento) {
+		console.log("saiu")
 	}
 
 }
