@@ -44,6 +44,10 @@ class PlayGame extends Phaser.Scene {
             
         })
 
+		this.premios.children.iterate(this.configuracaoFilho)
+
+		
+
 		this.inimigos = this.physics.add.group({
             key:'rock',
             repeat:4,
@@ -51,6 +55,8 @@ class PlayGame extends Phaser.Scene {
             setXY:{x:50, y:-100, stepX:130}
             
         });
+
+		this.inimigos.children.iterate(this.configuracaoFilho)
 
 		//movendo o personagem
 
@@ -127,8 +133,15 @@ class PlayGame extends Phaser.Scene {
 		}
 	}
 
+	configuracaoFilho(elemento) {
+		elemento.body.onWorldBounds = true
+		elemento.x = Phaser.Math.Between(0,800)
+		elemento.y = Phaser.Math.Between(0,70)
+	}
+
 	saiuDaCena(elemento) {
-		console.log("saiu")
+		elemento.x = Phaser.Math.Between(0,800)
+		elemento.y = Phaser.Math.Between(0,70)
 	}
 
 }
